@@ -30,3 +30,21 @@ Route::get('/Supplier/Remove/id={id}', 'SupplierController@remove');
 
 Route::post('/Supplier/Store','SupplierController@store');
 Route::post('/Supplier/Update/id={id}','SupplierController@update');
+
+//ProductType
+Route::get('/ProductType','pTypeController@index');
+Route::get('/ProductType/Create','pTypeController@create');
+Route::get('/ProductType/Edit/id={id}', 'pTypeController@edit');
+Route::get('/ProductType/Deactivate/id={id}', 'pTypeController@destroy');
+Route::get('/ProductType/Soft', 'pTypeController@soft');
+Route::get('/ProductType/Reactivate/id={id}', 'pTypeController@reactivate');
+Route::get('/ProductType/Remove/id={id}', 'pTypeController@remove');
+
+Route::post('/ProductType/Store','pTypeController@store');
+Route::post('/ProductType/Update/id={id}','pTypeController@update');
+
+//ProductBrand
+Route::get('/ProductBrand','pBrandController@index');
+Route::get('/ProductBrand/Create','pBrandController@create');
+
+Route::post('/ProductBrand/Store','pBrandController@store');

@@ -19,18 +19,17 @@
 @endif
 <div class="box box-primary">
     <div class="box-header with-border">
-      <h3 class="box-title">Household Management</h3>
+      <h3 class="box-title">Product Type</h3>
       <div class="box-tools pull-right">
-        <a href="{{ url('/Supplier/Create') }}" class="btn btn-xs btn-success">New Supplier</a>
+        <a href="{{ url('/ProductType/Create') }}" class="btn btn-xs btn-success">New Product Type</a>
       </div>
     </div>
     <div class="box-body">
         <table id="example" class="display" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Supplier</th>
-                    <th>Address</th>
-                    <th>Contact Number</th>
+                    <th>Name</th>
+                    <th>Brand</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -38,14 +37,13 @@
                 @foreach($post as $posts)
                 <tr>
                     <td>{{$posts->name}}</td>
-                    <td>{{$posts->street}} {{$posts->brgy}} {{$posts->city}}</td>
-                    <td>{{$posts->contactNumber}}</td>
+                <td></td>
                     <td>
-                        <a href="{{ url('/Supplier/Reactivate/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Reactivate record">
-                            <i class="fa fa-recycle" aria-hidden="true"></i>
+                        <a href="{{ url('/ProductType/Edit/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update record">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ url('/Supplier/Remove/id='.$posts->id) }}"  onclick="return deleteForm()" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete record">
-                            <i class="fa fa-times" aria-hidden="true"></i>
+                        <a href="{{ url('/ProductType/Deactivate/id='.$posts->id) }}"  onclick="return deleteForm()" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Deactivate record">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
@@ -53,7 +51,7 @@
             </tbody>
         </table>
         <div class="form-group pull-right">
-            <label class="checkbox-inline"><input type="checkbox"  onclick="document.location='{{ url('/Supplier/Soft') }}';" id="showDeactivated"> Show deactivated records</label>
+            <label class="checkbox-inline"><input type="checkbox"  onclick="document.location='{{ url('/ProductType/Soft') }}';" id="showDeactivated"> Show deactivated records</label>
          </div>
     </div>
 </div>
