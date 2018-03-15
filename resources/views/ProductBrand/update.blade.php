@@ -20,7 +20,7 @@
 <div class="col-sm-6">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">New Product Brand</h3>
+            <h3 class="box-title">Update Product Brand</h3>
             <div class="box-tools pull-right">
                 <p class="pull-right"><b>Note</b>: Fields with <span style="color:red;">*</span> are needed to filled out.</p>
             </div>

@@ -86,6 +86,7 @@
           <li><a href="{{ url('/Supplier') }}">Supplier</a></li>
           <li><a href="{{ url('/ProductType') }}">Product Type</a></li>
           <li><a href="{{ url('/ProductBrand') }}">Product Brand</a></li>
+          <li><a href="{{ url('/UnitMeasurement') }}">Unit of Measurement</a></li>
           </ul>
         </li>
         

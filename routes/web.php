@@ -54,3 +54,15 @@ Route::get('/ProductBrand/Remove/id={id}', 'pBrandController@remove');
 
 Route::post('/ProductBrand/Store','pBrandController@store');
 Route::post('/ProductBrand/Update/id={id}','pBrandController@update');
+
+//UOM
+Route::get('/UnitMeasurement','UomController@index');
+Route::get('/UnitMeasurement/Create','UomController@create');
+Route::get('/UnitMeasurement/Edit/id={id}', 'UomController@edit');
+Route::get('/UnitMeasurement/Deactivate/id={id}', 'UomController@destroy');
+Route::get('/UnitMeasurement/Soft', 'UomController@soft');
+Route::get('/UnitMeasurement/Reactivate/id={id}', 'UomController@reactivate');
+Route::get('/UnitMeasurement/Remove/id={id}', 'UomController@remove');
+
+Route::post('/UnitMeasurement/Store','UomController@store');
+Route::post('/UnitMeasurement/Update/id={id}','UomController@update');
