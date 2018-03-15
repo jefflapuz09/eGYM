@@ -13,4 +13,9 @@ class ProductBrand extends Model
         'description',
         'isActive'
     ];
+
+    public function Type()
+    {
+        return $this->hasMany('App\TypeBrand','brandId');
+    }
 }

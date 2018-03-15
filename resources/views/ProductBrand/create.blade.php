@@ -32,7 +32,7 @@
                     Product Brand Information
                 </div>
                 <div class="form-group">
-                    <label for="">Product Type Name <span style="color:red;">*</span></label>
+                    <label for="">Product Brand Name <span style="color:red;">*</span></label>
                     <input type="text" name="name" id="" class="form-control">
                 </div>
                 <div style="background:#252525; padding:10px; color:White; margin-bottom:10px;">

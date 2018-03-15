@@ -95,16 +95,12 @@
 
   <div class="content-wrapper">
     <section class="content">
-      @yield('content')
+        <div class="row">
+          @yield('content')
+        </div>
     </section>
   </div>
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        {{ Carbon\Carbon::now()->toFormattedDateString()  }}<div id="timediv"></div>
-    </div>
-    <strong>Copyright &copy; 2018 Lapuz Family.</strong> All rights
-    reserved.
-  </footer>
+
 
 
 <script src="{{ asset('js/jquery.min.js') }}"></script>

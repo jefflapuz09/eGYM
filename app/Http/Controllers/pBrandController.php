@@ -98,7 +98,9 @@ class pBrandController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = ProductBrand::find($id);
+        $pType = ProductType::where('isActive',1)->get();
+        return view('ProductBrand.update',compact('post','pType'));
     }
 
     /**
@@ -110,7 +112,42 @@ class pBrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'name' => ['required',Rule::unique('product_brands')->ignore($id),'max:50','regex:/^[^~`!@#*_={}|\;<>,.?]+$/'],
+            'types.*' => ['required','distinct','max:50','regex:/^[^~`!@#*_={}|\;<>,.?]+$/'],
+        ];
+        $messages = [
+            'unique' => ':attribute already exists.',
+            'required' => 'The :attribute field is required.',
+            'max' => 'The :attribute field must be no longer than :max characters.',
+            'regex' => 'The :attribute must not contain special characters.'              
+        ];
+        $niceNames = [
+            'name' => 'Product Brand',
+            'types.*' => 'Type'
+        ];
+        $validator = Validator::make($request->all(),$rules,$messages);
+        $validator->setAttributeNames($niceNames); 
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+        else
+        {
+            $brand = ProductBrand::find($id)->update([
+                'name' => $request->name
+            ]);
+
+            TypeBrand::where('brandId',$id)->delete();
+            foreach($request->types as $type)
+            {
+                $typeId = ProductType::where('name',$type)->first();
+                TypeBrand::create([
+                    'typeId' => $typeId->id,
+                    'brandId' => $id
+                ]);
+            }
+        }
+        return redirect('/ProductBrand')->withSuccess('Successfully updated into the database.');
     }
 
     /**
@@ -121,6 +158,35 @@ class pBrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        ProductBrand::find($id)->update(['isActive' => 0]);
+            return redirect('/ProductBrand');    
+    }
+
+    public function soft()
+    {
+        $post = ProductBrand::where('isActive',0)->get();
+        return view('ProductBrand.soft',compact('post'));
+    }
+
+    public function reactivate($id)
+    {
+        ProductBrand::find($id)->update(['isActive' => 1]);
+        return redirect('/ProductBrand');
+    }
+
+    public function remove($id)
+    {
+        $chkTypeBrand = TypeBrand::where('brandId',$id)->get();
+        if(count($chkTypeBrand)!=0)
+        {
+            return Redirect::back()->withError('It seems the product type are being used in the other items.');
+        }
+        else
+        {
+            $post = ProductBrand::find($id);
+            $post->delete();
+        }
+        return redirect('/ProductBrand/Soft');
     }
 }

@@ -46,5 +46,11 @@ Route::post('/ProductType/Update/id={id}','pTypeController@update');
 //ProductBrand
 Route::get('/ProductBrand','pBrandController@index');
 Route::get('/ProductBrand/Create','pBrandController@create');
+Route::get('/ProductBrand/Edit/id={id}', 'pBrandController@edit');
+Route::get('/ProductBrand/Deactivate/id={id}', 'pBrandController@destroy');
+Route::get('/ProductBrand/Soft', 'pBrandController@soft');
+Route::get('/ProductBrand/Reactivate/id={id}', 'pBrandController@reactivate');
+Route::get('/ProductBrand/Remove/id={id}', 'pBrandController@remove');
 
 Route::post('/ProductBrand/Store','pBrandController@store');
+Route::post('/ProductBrand/Update/id={id}','pBrandController@update');
