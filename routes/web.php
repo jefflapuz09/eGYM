@@ -66,3 +66,11 @@ Route::get('/UnitMeasurement/Remove/id={id}', 'UomController@remove');
 
 Route::post('/UnitMeasurement/Store','UomController@store');
 Route::post('/UnitMeasurement/Update/id={id}','UomController@update');
+
+//Variant
+Route::get('/ProductVariant','VariantController@index');
+Route::get('/ProductVariant/Create','VariantController@create');
+Route::get('/ProductVariant/Category/{id}','VariantController@category');
+Route::get('/ProductVariant/Edit/id={id}', 'VariantController@edit');
+
+Route::post('/ProductVariant/Store','VariantController@store');

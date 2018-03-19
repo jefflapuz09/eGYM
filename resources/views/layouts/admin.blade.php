@@ -87,6 +87,7 @@
           <li><a href="{{ url('/ProductType') }}">Product Type</a></li>
           <li><a href="{{ url('/ProductBrand') }}">Product Brand</a></li>
           <li><a href="{{ url('/UnitMeasurement') }}">Unit of Measurement</a></li>
+          <li><a href="{{ url('/ProductVariant') }}">Product Variant</a></li>
           </ul>
         </li>
         
@@ -128,13 +129,6 @@
         format: 'yyyy-mm-dd',
        });
 
-       var interval = setInterval(timestamphome, 1000);
-        function timestamphome(){
-        var date;
-       date = new Date();
-        var time = document.getElementById('timediv'); 
-        time.innerHTML = date.toLocaleTimeString();
-         }
     });
 </script>
 @yield('script')

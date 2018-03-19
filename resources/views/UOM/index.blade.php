@@ -22,7 +22,7 @@
         <div class="box-header with-border">
         <h3 class="box-title">Unit of Measurement</h3>
         <div class="box-tools pull-right">
-            <a href="{{ url('/UnitMeasurement/Create') }}" class="btn btn-xs btn-success">New UOM</a>
+            <a href="{{ url('/UnitMeasurement/Create') }}" class="btn btn-xs btn-success">New Record</a>
         </div>
         </div>
         <div class="box-body">

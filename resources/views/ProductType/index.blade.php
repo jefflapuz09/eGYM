@@ -22,7 +22,7 @@
         <div class="box-header with-border">
         <h3 class="box-title">Product Type</h3>
         <div class="box-tools pull-right">
-            <a href="{{ url('/ProductType/Create') }}" class="btn btn-xs btn-success">New Product Type</a>
+            <a href="{{ url('/ProductType/Create') }}" class="btn btn-xs btn-success">New Record</a>
         </div>
         </div>
         <div class="box-body">
@@ -43,7 +43,6 @@
                                 <li>{{$brand->Brand->name}}</li>
                             @endforeach
                         </td>
-                    <td></td>
                         <td>
                             <a href="{{ url('/ProductType/Edit/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update record">
                                 <i class="fa fa-edit" aria-hidden="true"></i>

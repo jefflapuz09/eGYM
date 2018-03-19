@@ -22,7 +22,7 @@
         <div class="box-header with-border">
         <h3 class="box-title">Product Brand</h3>
         <div class="box-tools pull-right">
-            <a href="{{ url('/ProductBrand/Create') }}" class="btn btn-xs btn-success">New Product Brand</a>
+            <a href="{{ url('/ProductBrand/Create') }}" class="btn btn-xs btn-success">New Record</a>
         </div>
         </div>
         <div class="box-body">
