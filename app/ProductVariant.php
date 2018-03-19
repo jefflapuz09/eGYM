@@ -11,6 +11,7 @@ class ProductVariant extends Model
     protected $fillable = [
         'size',
         'unit',
+        'category',
         'isActive'
     ];
     

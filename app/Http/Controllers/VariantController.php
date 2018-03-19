@@ -7,6 +7,9 @@ use App\ProductVariant;
 use App\Uom;
 use App\TypeVariant;
 use App\ProductType;
+use Validator;
+use Redirect;
+use Illuminate\Validation\Rule;
 
 class VariantController extends Controller
 {
@@ -47,15 +50,43 @@ class VariantController extends Controller
      */
     public function store(Request $request)
     {
-        $variant = ProductVariant::create([
-            'size' => $request->size,
-            'unit' => $request->unit
-        ]);
+        $rules = [
+            'size' => 'required',
+            'unit' => 'required',
+            'category' => 'required',
+            'typeId' => 'required'
+        ];
+        $messages = [
+            'unique' => ':attribute already exists.',
+            'required' => 'The :attribute field is required.',
+            'max' => 'The :attribute field must be no longer than :max characters.',
+            'regex' => 'The :attribute must not contain special characters.'              
+        ];
+        $niceNames = [
+            'size' => 'Size',
+            'unit' => 'Unit of Measurement',
+            'category' => 'Category',
+            'typeId' => 'Product Type'
+        ];
+        $validator = Validator::make($request->all(),$rules,$messages);
+        $validator->setAttributeNames($niceNames); 
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+        else
+        {
+            $variant = ProductVariant::create([
+                'size' => $request->size,
+                'unit' => $request->unit,
+                'category' => $request->category
+            ]);
 
-        TypeVariant::create([
-            'variantId' => $variant->id,
-            'typeId' => $request->type
-        ]);
+            TypeVariant::create([
+                'variantId' => $variant->id,
+                'typeId' => $request->type
+            ]);
+        }
+        return redirect('/ProductVariant')->withSuccess('Successfully inserted into the database.');
     }
 
     /**
@@ -92,7 +123,44 @@ class VariantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'size' => 'required',
+            'unit' => 'required',
+            'category' => 'required',
+            'typeId' => 'required'
+        ];
+        $messages = [
+            'unique' => ':attribute already exists.',
+            'required' => 'The :attribute field is required.',
+            'max' => 'The :attribute field must be no longer than :max characters.',
+            'regex' => 'The :attribute must not contain special characters.'              
+        ];
+        $niceNames = [
+            'size' => 'Size',
+            'unit' => 'Unit of Measurement',
+            'category' => 'Category',
+            'typeId' => 'Product Type'
+        ];
+        $validator = Validator::make($request->all(),$rules,$messages);
+        $validator->setAttributeNames($niceNames); 
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+        else
+        {
+            ProductVariant::find($id)->update([
+                'size' => $request->size,
+                'unit' => $request->unit,
+                'category' => $request->category
+            ]);
+
+            TypeVariant::where('variantId',$id)->delete();
+            TypeVariant::create([
+                'variantId' => $id,
+                'typeId' => $request->type
+            ]);
+        }
+        return redirect('/ProductVariant')->withSuccess('Successfully updated into the database.');
     }
 
     /**
@@ -103,6 +171,27 @@ class VariantController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        ProductVariant::find($id)->update(['isActive' => 0]);
+            return redirect('/ProductVariant');    
+    }
+
+    public function soft()
+    {
+        $post = ProductVariant::where('isActive',0)->get();
+        return view('Variant.soft',compact('post'));
+    }
+
+    public function reactivate($id)
+    {
+        ProductVariant::find($id)->update(['isActive' => 1]);
+        return redirect('/ProductVariant');
+    }
+
+    public function remove($id)
+    {
+        TypeVariant::where('variantId',$id)->delete();
+        ProductVariant::where('id',$id)->delete();
+        return redirect('/ProductVariant/Soft');
     }
 }

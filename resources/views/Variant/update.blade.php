@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="box-body">
-            <form action="{{ url('/ProductVariant/Store') }}" method="post">
+            <form action="{{ url('/ProductVariant/Update/id='.$post->id) }}" method="post">
                         <div class="" style="padding:10px; background:#252525; color:white; margin-bottom:20px;">
                             Unit of Measurement Information
                         </div>
@@ -35,9 +35,9 @@
                                 <div class="form-group">
                                     <label for="">Category<span style="color:red;">*</span></label>
                                     <select class="form-control" id="category" name="category">
-                                        <option value="Mass">Mass</option>
-                                        <option value="Length">Length</option>
-                                        <option value="Volume">Volume</option>
+                                        <option value="Mass" {{$post->category == 'Mass' ? 'selected' : ''}}>Mass</option>
+                                        <option value="Length" {{$post->category == 'Length' ? 'selected' : ''}}>Length</option>
+                                        <option value="Volume" {{$post->category == 'Volume' ? 'selected' : ''}}>Volume</option>
                                     </select>
                                 </div>  
                             </div>
@@ -45,7 +45,7 @@
                                 <label for="">Belong to Product Type<span style="color:red;">*</span></label>
                                 <select class="form-control" name="type">
                                     @foreach($type as $types)
-                                        <option value="{{$types->id}}">{{$types->name}}</option>
+                                        <option value="{{$types->id}}" @foreach($post->Type as $type) {{$type->Type->id == $types->id ? 'selected' : ''}}@endforeach>{{$types->name}}</option>
                                     @endforeach
                                 </select>
                             </div>  
@@ -59,7 +59,7 @@
                                 <div class="form-group" style="margin-top:25px;">
                                     <select class="form-control" id="unit" name="unit">
                                         @foreach($unit as $units)
-                                            <option value="{{$units->name}}">{{$units->name}}</option>
+                                            <option value="{{$units->name}}" {{$post->unit == $units->name ? 'selected' : ''}}>{{$units->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

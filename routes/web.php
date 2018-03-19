@@ -72,5 +72,10 @@ Route::get('/ProductVariant','VariantController@index');
 Route::get('/ProductVariant/Create','VariantController@create');
 Route::get('/ProductVariant/Category/{id}','VariantController@category');
 Route::get('/ProductVariant/Edit/id={id}', 'VariantController@edit');
+Route::get('/ProductVariant/Deactivate/id={id}', 'VariantController@destroy');
+Route::get('/ProductVariant/Soft', 'VariantController@soft');
+Route::get('/ProductVariant/Reactivate/id={id}', 'VariantController@reactivate');
+Route::get('/ProductVariant/Remove/id={id}', 'VariantController@remove');
 
 Route::post('/ProductVariant/Store','VariantController@store');
+Route::post('/ProductVariant/Update/id={id}','VariantController@update');

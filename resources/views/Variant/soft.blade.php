@@ -44,11 +44,11 @@
                             @endforeach
                         </td>
                         <td>
-                            <a href="{{ url('/ProductVariant/Edit/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update record">
-                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            <a href="{{ url('/ProductVariant/Reactivate/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Reactivate record">
+                            <i class="fa fa-recycle" aria-hidden="true"></i>
                             </a>
-                            <a href="{{ url('/ProductVariant/Deactivate/id='.$posts->id) }}"  onclick="return deleteForm()" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Deactivate record">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            <a href="{{ url('/ProductVariant/Remove/id='.$posts->id) }}"  onclick="return deleteForm()" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Delete record">
+                                <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>
@@ -56,7 +56,7 @@
                 </tbody>
             </table>
             <div class="form-group pull-right">
-                <label class="checkbox-inline"><input type="checkbox"  onclick="document.location='{{ url('/ProductVariant/Soft') }}';" id="showDeactivated"> Show deactivated records</label>
+                <label class="checkbox-inline"><input type="checkbox"  onclick="document.location='{{ url('/ProductVariant') }}';" id="showDeactivated"> Show Active Records</label>
             </div>
         </div>
     </div>

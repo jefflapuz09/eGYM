@@ -83,11 +83,12 @@
         <li class="treeview">
           <a href="#"><span>Inventory</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-          <li><a href="{{ url('/Supplier') }}">Supplier</a></li>
-          <li><a href="{{ url('/ProductType') }}">Product Type</a></li>
-          <li><a href="{{ url('/ProductBrand') }}">Product Brand</a></li>
-          <li><a href="{{ url('/UnitMeasurement') }}">Unit of Measurement</a></li>
-          <li><a href="{{ url('/ProductVariant') }}">Product Variant</a></li>
+            <li><a href="{{ url('/Supplier') }}">Supplier</a></li>
+            <li><a href="{{ url('/ProductType') }}">Product Type</a></li>
+            <li><a href="{{ url('/ProductBrand') }}">Product Brand</a></li>
+            <li><a href="{{ url('/UnitMeasurement') }}">Unit of Measurement</a></li>
+            <li><a href="{{ url('/ProductVariant') }}">Product Variant</a></li>
+            <li><a href="{{ url('/Product') }}">Product</a></li>
           </ul>
         </li>
         
