@@ -51,10 +51,9 @@ class VariantController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'size' => 'required',
-            'unit' => 'required',
+            'size' => 'required|unique:product_variants',
             'category' => 'required',
-            'typeId' => 'required'
+            'type' => 'required'
         ];
         $messages = [
             'unique' => ':attribute already exists.',
@@ -64,7 +63,6 @@ class VariantController extends Controller
         ];
         $niceNames = [
             'size' => 'Size',
-            'unit' => 'Unit of Measurement',
             'category' => 'Category',
             'typeId' => 'Product Type'
         ];
@@ -75,9 +73,10 @@ class VariantController extends Controller
         }
         else
         {
+            
+            $size = $request->size.' '.$request->unit;
             $variant = ProductVariant::create([
-                'size' => $request->size,
-                'unit' => $request->unit,
+                'size' => $size,
                 'category' => $request->category
             ]);
 
@@ -124,10 +123,9 @@ class VariantController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'size' => 'required',
-            'unit' => 'required',
+            'size' => "required|Rule::unique('produt_variants')->ignore($id)",
             'category' => 'required',
-            'typeId' => 'required'
+            'type' => 'required'
         ];
         $messages = [
             'unique' => ':attribute already exists.',
@@ -137,7 +135,6 @@ class VariantController extends Controller
         ];
         $niceNames = [
             'size' => 'Size',
-            'unit' => 'Unit of Measurement',
             'category' => 'Category',
             'typeId' => 'Product Type'
         ];
@@ -148,9 +145,9 @@ class VariantController extends Controller
         }
         else
         {
+            $size = $request->size.' '.$request->unit;
             ProductVariant::find($id)->update([
-                'size' => $request->size,
-                'unit' => $request->unit,
+                'size' => $size,
                 'category' => $request->category
             ]);
 

@@ -18,7 +18,6 @@ class CreateProductVariantsTable extends Migration
             $table->increments('id');
             $table->string('category');
             $table->string('size');
-            $table->string('unit');
             $table->boolean('isActive')->default(1);
             $table->timestamps();
         });

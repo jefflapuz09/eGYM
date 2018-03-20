@@ -40,7 +40,7 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => ['required'],
+            'name' => ['required','unique:suppliers'],
             'street' => 'nullable',
             'brgy' => 'nullable',
             'city' => 'required',
@@ -106,7 +106,7 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => ['required'],
+            'name' => ['required',Rule::unique('suppliers')->ignore($id)],
             'street' => 'nullable',
             'brgy' => 'nullable',
             'city' => 'required',

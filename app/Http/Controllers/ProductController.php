@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Uom;
+use App\Product;
+use App\ProductType;
+use App\ProductBrand;
+use App\ProductVariant;
+use App\TypeBrand;
+use App\TypeVariant;
 use Validator;
 use Redirect;
 use Illuminate\Validation\Rule;
 
-class UomController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +22,8 @@ class UomController extends Controller
      */
     public function index()
     {
-        $post = Uom::where('isActive',1)->get();
-        return view('UOM.index',compact('post'));
+        $post = Product::where('isActive',1)->get();
+        return view('Product.index',compact('post'));
     }
 
     /**
@@ -28,9 +33,18 @@ class UomController extends Controller
      */
     public function create()
     {
-        return view('UOM.create');
+        $type = ProductType::where('isActive',1)->get();
+        $brand = ProductBrand::where('isActive',1)->get();
+        $variant = ProductVariant::where('isActive',1)->get();
+        return view('Product.create',compact('type','brand','variant'));
     }
 
+    public function type($id)
+    {
+        $brands = TypeBrand::with('Brand')->where('typeId',$id)->get();
+        $variant = TypeVariant::with('Variant')->where('typeId',$id)->get();
+        return response()->json(['brands'=>$brands,'variant'=>$variant]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -40,9 +54,13 @@ class UomController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => ['required','unique:uoms'],
-            'category' => 'required',
-            'description' => 'required'
+            'name' => 'required|unique:products',
+            'price' => 'required',
+            'typeId' => 'required',
+            'brandId' => 'required',
+            'variantId' => 'required',
+            'reorder' => 'required',
+            'description' => 'nullable'
         ];
         $messages = [
             'unique' => ':attribute already exists.',
@@ -51,8 +69,12 @@ class UomController extends Controller
             'regex' => 'The :attribute must not contain special characters.'              
         ];
         $niceNames = [
-            'name' => 'Unit of Measurement',
-            'category' => 'Category',
+            'name' => 'Product Name',
+            'price' => 'Price',
+            'typeId' => 'Product Type',
+            'brandId' => 'Product Brand',
+            'variantId' => 'Product Variant',
+            'reorder' => 'Reorder Level',
             'description' => 'Description'
         ];
         $validator = Validator::make($request->all(),$rules,$messages);
@@ -62,13 +84,17 @@ class UomController extends Controller
         }
         else
         {
-            Uom::create([
+            Product::create([
                 'name' => $request->name,
-                'category' => $request->category,
+                'price' => $request->price,
+                'typeId' => $request->typeId,
+                'brandId' => $request->brandId,
+                'variantId' => $request->variantId,
+                'reorder' => $request->reorder,
                 'description' => $request->description
             ]);
         }
-        return redirect('/UnitMeasurement')->withSuccess('Successfully inserted into the database.');
+        return redirect('/Product')->withSuccess('Successfully inserted into the database.');
     }
 
     /**
@@ -90,8 +116,11 @@ class UomController extends Controller
      */
     public function edit($id)
     {
-        $post = Uom::find($id);
-        return view('UOM.update',compact('post'));
+        $type = ProductType::where('isActive',1)->get();
+        $brand = ProductBrand::where('isActive',1)->get();
+        $variant = ProductVariant::where('isActive',1)->get();
+        $post = Product::find($id);
+        return view('Product.update',compact('type','brand','variant','post'));
     }
 
     /**
@@ -104,9 +133,13 @@ class UomController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => ['required',Rule::unique('uoms')->ignore($id)],
-            'category' => 'required',
-            'description' => 'required'
+            'name' => ['required',Rule::unique('products')->ignore($id)],
+            'price' => 'required',
+            'typeId' => 'required',
+            'brandId' => 'required',
+            'variantId' => 'required',
+            'reorder' => 'required',
+            'description' => 'nullable'
         ];
         $messages = [
             'unique' => ':attribute already exists.',
@@ -115,8 +148,12 @@ class UomController extends Controller
             'regex' => 'The :attribute must not contain special characters.'              
         ];
         $niceNames = [
-            'name' => 'Unit of Measurement',
-            'category' => 'Category',
+            'name' => 'Product Name',
+            'price' => 'Price',
+            'typeId' => 'Product Type',
+            'brandId' => 'Product Brand',
+            'variantId' => 'Product Variant',
+            'reorder' => 'Reorder Level',
             'description' => 'Description'
         ];
         $validator = Validator::make($request->all(),$rules,$messages);
@@ -126,13 +163,17 @@ class UomController extends Controller
         }
         else
         {
-            Uom::find($id)->update([
+            Product::find($id)->update([
                 'name' => $request->name,
-                'category' => $request->category,
+                'price' => $request->price,
+                'typeId' => $request->typeId,
+                'brandId' => $request->brandId,
+                'variantId' => $request->variantId,
+                'reorder' => $request->reorder,
                 'description' => $request->description
             ]);
         }
-        return redirect('/UnitMeasurement')->withSuccess('Successfully updated into the database.');
+        return redirect('/Product')->withSuccess('Successfully updated into the database.');
     }
 
     /**
@@ -144,26 +185,26 @@ class UomController extends Controller
     public function destroy($id)
     {
 
-        Uom::find($id)->update(['isActive' => 0]);
-            return redirect('/UnitMeasurement');    
+        Product::find($id)->update(['isActive' => 0]);
+            return redirect('/Product');    
     }
 
     public function soft()
     {
-        $post = Uom::where('isActive',0)->get();
-        return view('UOM.soft',compact('post'));
+        $post = Product::where('isActive',0)->get();
+        return view('Product.soft',compact('post'));
     }
 
     public function reactivate($id)
     {
-        Uom::find($id)->update(['isActive' => 1]);
-        return redirect('/UnitMeasurement');
+        Product::find($id)->update(['isActive' => 1]);
+        return redirect('/Product');
     }
 
     public function remove($id)
     {
-        $post = Uom::find($id);
+        $post = Product::find($id);
         $post->delete();
-        return redirect('/UnitMeasurement/Soft');
+        return redirect('/Product/Soft');
     }
 }

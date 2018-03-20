@@ -79,3 +79,16 @@ Route::get('/ProductVariant/Remove/id={id}', 'VariantController@remove');
 
 Route::post('/ProductVariant/Store','VariantController@store');
 Route::post('/ProductVariant/Update/id={id}','VariantController@update');
+
+//Product
+Route::get('/Product','ProductController@index');
+Route::get('/Product/Create','ProductController@create');
+Route::get('/Product/Type/{id}','ProductController@type');
+Route::get('/Product/Edit/id={id}', 'ProductController@edit');
+Route::get('/Product/Deactivate/id={id}', 'ProductController@destroy');
+Route::get('/Product/Soft', 'ProductController@soft');
+Route::get('/Product/Reactivate/id={id}', 'ProductController@reactivate');
+Route::get('/Product/Remove/id={id}', 'ProductController@remove');
+
+Route::post('/Product/Store','ProductController@store');
+Route::post('/Product/Update/id={id}','ProductController@update');
