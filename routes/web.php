@@ -92,3 +92,9 @@ Route::get('/Product/Remove/id={id}', 'ProductController@remove');
 
 Route::post('/Product/Store','ProductController@store');
 Route::post('/Product/Update/id={id}','ProductController@update');
+
+//Transaction
+//Purchase Order
+Route::get('/PurchaseOrder','PurchaseController@index');
+Route::get('/PurchaseOrder/Create','PurchaseController@create');
+Route::get('/Purchase/Item/{id}','PurchaseController@product');

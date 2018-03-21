@@ -3,7 +3,7 @@
  * ------------
  */
 .skin-purple-light .main-header .navbar {
-  background-color: #605ca8;
+  background-color: maroon;
 }
 .skin-purple-light .main-header .navbar .nav > li > a {
   color: #ffffff;
@@ -43,7 +43,7 @@
   }
 }
 .skin-purple-light .main-header .logo {
-  background-color: #605ca8;
+  background-color: maroon;
   color: #ffffff;
   border-bottom: 0 solid transparent;
 }

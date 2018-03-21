@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('/assets/adminlte/bower_components/font-awesome/css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/adminlte/bower_components/Ionicons/css/ionicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/adminlte/dist/css/AdminLTE.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('/assets/adminlte/dist/css/skins/_all-skins.css') }}">
+  <link rel="stylesheet" href="{{ asset('/assets/adminlte/dist/css/skins/skin-purple-light.css') }}">
   <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
@@ -89,6 +89,13 @@
             <li><a href="{{ url('/UnitMeasurement') }}">Unit of Measurement</a></li>
             <li><a href="{{ url('/ProductVariant') }}">Product Variant</a></li>
             <li><a href="{{ url('/Product') }}">Product</a></li>
+          </ul>
+        </li>
+        <li class="header">Transaction</li>
+        <li class="treeview">
+          <a href="#"><span>Inventory</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('/PurchaseOrder') }}">Purchase Order</a></li>
           </ul>
         </li>
         
