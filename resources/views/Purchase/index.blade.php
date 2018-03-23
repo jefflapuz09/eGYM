@@ -29,38 +29,97 @@
             <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Details</th>
+                        <th>Purchase Id</th>
+                        <th>Supplier</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($post as $posts)
                     <tr>
-                        <td>{{$posts->name}}</td>
+                        <td>{{$posts->id}}</td>
+                        <td>{{$posts->Supplier->name}}</td>
                         <td>
-                            <li>{{$posts->Type->name}}</li>
-                            <li>{{$posts->Brand->name}}</li>
-                            <li>{{$posts->Variant->size}}</li>
-                            <li>P{{number_format($posts->price,2)}}</li>
+                            @if(!$posts->isFinalize)
+                            {{"Not yet finalized"}}
+                            @elseif($posts->isFinalize && !$posts->isDelivered)
+                            {{"Finalized"}}
+                            @elseif($posts->isDelivered)
+                            {{"All items delivered"}}
+                            @endif
                         </td>
                         <td>
-                            <a href="{{ url('/Product/Edit/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update record">
-                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            @if(!$posts->isFinalize)
+                                <button onclick="finalizeModal('{{$posts->id}}')" id="finalBtn" ype="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Finalize record">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                </button>
+                                <a href="{{ url('/PurchaseOrder/Edit/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update record">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a href="{{ url('/PurchaseOrder/Deactivate/id='.$posts->id) }}"  onclick="return deleteForm()" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Deactivate record">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            @elseif($posts->isFinalize)
+                                <a href="{{url('/PurchaseOrder/pdf/'.$posts->id)}}" target="_blank" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Generate PDF">
+                                    <i class="glyphicon glyphicon-file"></i>
+                                </a>
+                                @if(!$posts->isDelivered)
+                                    <a href="{{ url('/PurchaseOrder/Edit/id='.$posts->id) }}" onclick="return updateForm()" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update record">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="{{ url('/PurchaseOrder/Deactivate/id='.$posts->id) }}"  onclick="return deleteForm()" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Deactivate record">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                @endif
+                            @else
+                            <a href="{{url('/PurchaseOrder/pdf/'.$posts->id)}}" target="_blank" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Generate PDF">
+                                <i class="glyphicon glyphicon-file"></i>
                             </a>
-                            <a href="{{ url('/Product/Deactivate/id='.$posts->id) }}"  onclick="return deleteForm()" type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Deactivate record">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="form-group pull-right">
-                <label class="checkbox-inline"><input type="checkbox"  onclick="document.location='{{ url('/Product/Soft') }}';" id="showDeactivated"> Show deactivated records</label>
+                <label class="checkbox-inline"><input type="checkbox"  onclick="document.location='{{ url('/PurchaseOrder/Soft') }}';" id="showDeactivated"> Show deactivated records</label>
             </div>
         </div>
     </div>
+</div>
+
+<div id="finalizeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Finalize</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align:center">Are you sure you want to finalize this record?</div>
+                    <br>
+                    <div class="dataTable_wrapper">
+                    <form id='finalForm' method="post">
+                        {{csrf_field()}}
+                        <table id="productList" class="table table-striped table-bordered responsive">
+                            <thead>
+                                <tr>
+                                    <th>Qty</th>
+                                    <th>Product</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modalClose" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button id="finalize" type="submit" class="btn btn-success">Finalize</button>
+                </div>
+            </form>
+            </div>
+        </div>
 </div>
 @endsection
 
@@ -82,6 +141,37 @@
         else
           return false;
      }
+     var pList = $('#productList').DataTable({
+        'responsive': true,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "retrieve": true,
+    });
+
+    function finalizeModal(id){
+        $('#finalBtn').attr('disabled',true);
+        finalize = id;
+        $.ajax({
+            type: "GET",
+            url: "/Purchase/Final/"+id,
+            dataType: "JSON",
+            success:function(data){
+                $.each(data.detail,function(key,value){
+                    console.log(value);
+                    row = pList.row.add([
+                        value.quantity+"<input type='hidden' name='purchaseId' value='"+data.id+"'>",
+                        value.product.name
+                    ]).draw().node();
+                });
+                $("#finalForm").attr("action", "/PurchaseOrder/Finalize/" + id);
+            }
+        });
+        $('#finalizeModal').modal('show');
+    }
+    $('#modalClose').on('click',function(){
+        $('#finalBtn').attr('disabled',false);
+    });
 
 </script>
 @stop

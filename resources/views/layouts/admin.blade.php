@@ -96,6 +96,7 @@
           <a href="#"><span>Inventory</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li><a href="{{ url('/PurchaseOrder') }}">Purchase Order</a></li>
+            <li><a href="{{ url('/DeliveryOrder') }}">Delivery Order</a></li>
           </ul>
         </li>
         

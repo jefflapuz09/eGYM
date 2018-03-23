@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     protected $table = 'purchases';
+    public $incrementing = false;
 
     protected $fillable = [
         'id',
@@ -16,4 +17,14 @@ class Purchase extends Model
         'isFinalize',
         'isDelivered'
     ];
+
+    public function Supplier()
+    {
+        return $this->belongsTo('App\Supplier','supplierId');
+    }
+
+    public function Detail()
+    {
+        return $this->hasMany('App\PurchaseDetail','purchaseId');
+    }
 }

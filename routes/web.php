@@ -98,3 +98,17 @@ Route::post('/Product/Update/id={id}','ProductController@update');
 Route::get('/PurchaseOrder','PurchaseController@index');
 Route::get('/PurchaseOrder/Create','PurchaseController@create');
 Route::get('/Purchase/Item/{id}','PurchaseController@product');
+Route::get('/Purchase/Final/{id}','PurchaseController@final');
+Route::get('/PurchaseOrder/Edit/id={id}', 'PurchaseController@edit');
+Route::get('/PurchaseOrder/Deactivate/id={id}', 'PurchaseController@destroy');
+Route::get('/PurchaseOrder/Soft', 'PurchaseController@soft');
+Route::get('/PurchaseOrder/Reactivate/id={id}', 'PurchaseController@reactivate');
+Route::get('/PurchaseOrder/Remove/id={id}', 'PurchaseController@remove');
+
+Route::post('/PurchaseOrder/Store','PurchaseController@store');
+Route::post('/PurchaseOrder/Finalize/{id}','PurchaseController@finalize');
+Route::post('/PurchaseOrder/Update/id={id}','PurchaseController@update');
+
+//Delivery
+Route::get('/DeliveryOrder','DeliveryController@index');
+Route::get('/DeliveryOrder/Create','DeliveryController@create');

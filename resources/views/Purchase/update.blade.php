@@ -20,20 +20,20 @@
 <div class="col-sm-12">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">New Purchase Order</h3>
+            <h3 class="box-title">Update Purchase Order</h3>
             <div class="box-tools pull-right">
                 <p class="pull-right"><b>Note</b>: Fields with <span style="color:red;">*</span> are needed to filled out.</p>
             </div>
         </div>
         <div class="box-body">
-            <form action="{{ url('/PurchaseOrder/Store') }}" method="post">
+            <form action="{{ url('/PurchaseOrder/Update/id='.$post->id) }}" method="post">
                 {{csrf_field()}}
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Date of Purchase<span style="color:red;">*</span></label>
                             <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' name="created_at" placeholder="YYYY-MM-DD" id="date"  value="{{ old('created_at') }}" class="form-control" />
+                            <input type='text' name="created_at" placeholder="YYYY-MM-DD" id="date"  value="{{$post->dateMake}}" class="form-control" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -45,7 +45,7 @@
                             <label>Supplier<span style="color:red;">*</span></label>
                             <select id="supp" name="supplierId" class="form-control" required>
                                 @foreach($supplier as $suppliers)
-                                    <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>
+                                    <option value="{{$suppliers->id}}" {{$post->supplierId== $suppliers->id ? 'selected' : ""}}>{{$suppliers->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -54,7 +54,7 @@
                         <label>Product<span style="color:red;">*</span></label>
                         <select id="products" name="productId" class="form-control">
                             @foreach($product as $products)
-                                <option value="{{$products->id}}">{{$products->name}}</option>
+                                <option value="{{$products->id}}" {{$post->productId== $products->id ? 'selected' : ""}}>{{$products->name}}</option>
                             @endforeach
                         </select>
                     </div>

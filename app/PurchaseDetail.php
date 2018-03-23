@@ -16,4 +16,9 @@ class PurchaseDetail extends Model
         'delivered',
         'price'
     ];
+
+    public function Product()
+    {
+        return $this->belongsTo('App\Product','productId');
+    }
 }
