@@ -24,5 +24,17 @@ class SupplierSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ]);
 
+        DB::table('suppliers')->insert([
+            'id' => '2',
+            'name' => 'AIMS',
+            'street' => '#25 Malakas St.',
+            'brgy' => 'Sta.cruz',
+            'city' => 'Manila',
+            'contactNumber' => '0999999999',
+            'isActive' => '1',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
     }
 }

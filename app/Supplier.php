@@ -16,4 +16,9 @@ class Supplier extends Model
         'contactNumber',
         'isActive'
     ];
+
+    public function Purchase()
+    {
+        return $this->hasMany('App\Purchase','supplierId');
+    }
 }

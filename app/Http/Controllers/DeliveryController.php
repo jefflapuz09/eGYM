@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Delivery;
+use App\Supplier;
+use App\Purchase;
 
 class DeliveryController extends Controller
 {
@@ -23,9 +25,23 @@ class DeliveryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function purchase($id)
+    {
+        $purchase = Purchase::with('Supplier')->where('supplierId',$id)->get();
+        return response()->json($purchase);
+
+    }
+
+    public function product($id)
+    {
+        $product = Purchase::with('Detail.Product')->where('id',$id)->get();
+        return response()->json($product);
+    }
+
     public function create()
     {
-        //
+        $supplier = Supplier::where('isActive',1)->get();
+        return view('Delivery.create',compact('supplier','purchase'));
     }
 
     /**

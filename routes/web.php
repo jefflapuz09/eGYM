@@ -112,3 +112,7 @@ Route::post('/PurchaseOrder/Update/id={id}','PurchaseController@update');
 //Delivery
 Route::get('/DeliveryOrder','DeliveryController@index');
 Route::get('/DeliveryOrder/Create','DeliveryController@create');
+Route::get('/DeliveryOrder/Purchase/{id}','DeliveryController@purchase');
+Route::get('/DeliveryOrder/Product/{id}','DeliveryController@product');
+
+Route::post('/DeliveryOrder/Store','DeliveryController@store');
