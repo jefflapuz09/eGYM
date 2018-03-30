@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Delivery extends Model
 {
-    public $incrementing = false;
 
     protected $table = 'deliveries';
+    public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'supplierId',
         'dateMake',
         'isActive',

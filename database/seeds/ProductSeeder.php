@@ -22,6 +22,12 @@ class ProductSeeder extends Seeder
             'isActive' => 1
         ]);
 
+        DB::table('inventories')->insert([
+            'id' => 1,
+            'productId' => '1',
+            'stock' => 0
+        ]);
+
         DB::table('products')->insert([
             'id' => 2,
             'name' => 'Absolute Water 30 ml',
@@ -31,6 +37,12 @@ class ProductSeeder extends Seeder
             'variantId' => 2,
             'reorder' => 10,
             'isActive' => 1
+        ]);
+
+        DB::table('inventories')->insert([
+            'id' => 2,
+            'productId' => '2',
+            'stock' => 0
         ]);
     }
 }

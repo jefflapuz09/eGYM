@@ -26,12 +26,12 @@
             </div>
         </div>
         <div class="box-body">
-            <form action="{{ url('/PurchaseOrder/Store') }}" method="post">
+            <form action="{{ url('/DeliveryOrder/Store') }}" method="post">
                 {{csrf_field()}}
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label>Date of Purchase<span style="color:red;">*</span></label>
+                            <label>Date of Delivery<span style="color:red;">*</span></label>
                             <div class='input-group date' id='datetimepicker1'>
                             <input type='text' name="created_at" placeholder="YYYY-MM-DD" id="date"  value="{{ old('created_at') }}" class="form-control" />
                                     <span class="input-group-addon">
@@ -115,10 +115,10 @@
                 //console.log(data);
                 $.each(data,function(key,value){
                     row = pList.row.add([
-                        "<input type='text' class='form-control' disabled value='"+value.detail[0].quantity+"'>",
-                        "<input type='text' class='form-control' disabled value='"+value.detail[0].product.name+"'>",
-                        "<input type='text' class='form-control' disabled value='"+value.id+"'>",
-                        "<input type='text' class='form-control'>"
+                        "<input type='text' name='qtyOrder[]' class='form-control'  value='"+value.detail[0].quantity+"'>",
+                        "<input type='hidden' name='productId[]' class='form-control'  value='"+value.detail[0].product.id+"'><input type='text' name='product[]' class='form-control'  value='"+value.detail[0].product.name+"'>",
+                        "<input type='text' name='orderId[]' class='form-control'  value='"+value.id+"'>",
+                        "<input type='text' name='qtyReceived[]' class='form-control'>"
                     ]).draw().node();
                 });
             }

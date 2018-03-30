@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Delivery;
 use App\Supplier;
 use App\Purchase;
+use App\DeliveryDetail;
+use App\Inventory;
 
 class DeliveryController extends Controller
 {
@@ -52,7 +54,28 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = Delivery::all()->count() + 1;
+        $id = 'ORDER'.str_pad($id, 5, '0', STR_PAD_LEFT); 
+
+        $delivery = Delivery::create([
+            'id' => $id,
+            'supplierId' => $request->supplierId,
+            'dateMake' => $request->created_at,
+            'isActive' => 1
+        ]);
+
+        $index = 0;
+        foreach($request->productId as $product)
+        {
+            DeliveryDetail::create([
+                'deliveryId' => $delivery->id,
+                'productId' => $product,
+                'quantity' => $request->qtyReceived[$index],
+            ]);
+            $inventory = Inventory::where('productId',$product)->first();
+            $inventory->increment('stock', $request->qtyReceived[$index]);
+            $index++;
+        }
     }
 
     /**

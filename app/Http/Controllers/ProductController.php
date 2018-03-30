@@ -84,7 +84,7 @@ class ProductController extends Controller
         }
         else
         {
-            Product::create([
+            $product = Product::create([
                 'name' => $request->name,
                 'price' => $request->price,
                 'typeId' => $request->typeId,
@@ -92,6 +92,11 @@ class ProductController extends Controller
                 'variantId' => $request->variantId,
                 'reorder' => $request->reorder,
                 'description' => $request->description
+            ]);
+
+            Inventory::create([
+                'productId' => $product->id,
+                'stock' => 0
             ]);
         }
         return redirect('/Product')->withSuccess('Successfully inserted into the database.');
@@ -172,6 +177,11 @@ class ProductController extends Controller
                 'reorder' => $request->reorder,
                 'description' => $request->description
             ]);
+
+
+            // Inventory::create([
+            //     'productId' => $id
+            // ]);
         }
         return redirect('/Product')->withSuccess('Successfully updated into the database.');
     }
