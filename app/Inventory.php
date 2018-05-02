@@ -12,4 +12,9 @@ class Inventory extends Model
         'productId',
         'stock'
     ];
+
+    public function Product()
+    {
+        return $this->belongsTo('App\Product','productId');
+    }
 }

@@ -83,7 +83,7 @@
         <li class="treeview">
           <a href="#"><span>Inventory</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('/Supplier') }}">Supplier</a></li>
+            {{--  <li><a href="{{ url('/Supplier') }}">Supplier</a></li>  --}}
             <li><a href="{{ url('/ProductType') }}">Product Type</a></li>
             <li><a href="{{ url('/ProductBrand') }}">Product Brand</a></li>
             <li><a href="{{ url('/UnitMeasurement') }}">Unit of Measurement</a></li>
@@ -92,14 +92,7 @@
           </ul>
         </li>
         <li class="header">Transaction</li>
-        <li class="treeview">
-          <a href="#"><span>Inventory</span> <i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('/PurchaseOrder') }}">Purchase Order</a></li>
-            <li><a href="{{ url('/DeliveryOrder') }}">Delivery Order</a></li>
-          </ul>
-        </li>
-        
+        <li><a href="{{ url('/Stock') }}"><i class="fa fa-circle-o text-aqua"></i> <span>Manage Stocks</span></a></li>        
       </ul>
     </section>
   </aside>

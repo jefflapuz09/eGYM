@@ -94,25 +94,31 @@ Route::post('/Product/Store','ProductController@store');
 Route::post('/Product/Update/id={id}','ProductController@update');
 
 //Transaction
+//Stocks
+Route::get('/Stock','StockController@index');
+Route::get('/Stock/Receive','StockController@receive');
+Route::get('/Stock/Item/{id}','StockController@product');
+Route::post('/Stock/Receive/Store','StockController@store');
+
 //Purchase Order
-Route::get('/PurchaseOrder','PurchaseController@index');
-Route::get('/PurchaseOrder/Create','PurchaseController@create');
-Route::get('/Purchase/Item/{id}','PurchaseController@product');
-Route::get('/Purchase/Final/{id}','PurchaseController@final');
-Route::get('/PurchaseOrder/Edit/id={id}', 'PurchaseController@edit');
-Route::get('/PurchaseOrder/Deactivate/id={id}', 'PurchaseController@destroy');
-Route::get('/PurchaseOrder/Soft', 'PurchaseController@soft');
-Route::get('/PurchaseOrder/Reactivate/id={id}', 'PurchaseController@reactivate');
-Route::get('/PurchaseOrder/Remove/id={id}', 'PurchaseController@remove');
+// Route::get('/PurchaseOrder','PurchaseController@index');
+// Route::get('/PurchaseOrder/Create','PurchaseController@create');
+// Route::get('/Purchase/Item/{id}','PurchaseController@product');
+// Route::get('/Purchase/Final/{id}','PurchaseController@final');
+// Route::get('/PurchaseOrder/Edit/id={id}', 'PurchaseController@edit');
+// Route::get('/PurchaseOrder/Deactivate/id={id}', 'PurchaseController@destroy');
+// Route::get('/PurchaseOrder/Soft', 'PurchaseController@soft');
+// Route::get('/PurchaseOrder/Reactivate/id={id}', 'PurchaseController@reactivate');
+// Route::get('/PurchaseOrder/Remove/id={id}', 'PurchaseController@remove');
 
-Route::post('/PurchaseOrder/Store','PurchaseController@store');
-Route::post('/PurchaseOrder/Finalize/{id}','PurchaseController@finalize');
-Route::post('/PurchaseOrder/Update/id={id}','PurchaseController@update');
+// Route::post('/PurchaseOrder/Store','PurchaseController@store');
+// Route::post('/PurchaseOrder/Finalize/{id}','PurchaseController@finalize');
+// Route::post('/PurchaseOrder/Update/id={id}','PurchaseController@update');
 
-//Delivery
-Route::get('/DeliveryOrder','DeliveryController@index');
-Route::get('/DeliveryOrder/Create','DeliveryController@create');
-Route::get('/DeliveryOrder/Purchase/{id}','DeliveryController@purchase');
-Route::get('/DeliveryOrder/Product/{id}','DeliveryController@product');
+// //Delivery
+// Route::get('/DeliveryOrder','DeliveryController@index');
+// Route::get('/DeliveryOrder/Create','DeliveryController@create');
+// Route::get('/DeliveryOrder/Purchase/{id}','DeliveryController@purchase');
+// Route::get('/DeliveryOrder/Product/{id}','DeliveryController@product');
 
-Route::post('/DeliveryOrder/Store','DeliveryController@store');
+// Route::post('/DeliveryOrder/Store','DeliveryController@store');
